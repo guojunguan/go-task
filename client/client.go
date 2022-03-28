@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 func Get(url string, body string, headers map[string]string, target interface{}) error {
-	c := http.Client{Timeout: time.Duration(3) * time.Second}
+	c := http.Client{Timeout: time.Duration(viper.GetInt("REQUEST_TIMEOUT")) * time.Second}
 	req, requestError := http.NewRequest("GET", url, nil)
 
 	if requestError != nil {

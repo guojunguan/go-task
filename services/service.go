@@ -7,9 +7,11 @@ import (
 	"log"
 )
 
+var clientGet = client.Get
+
 func getName() (*models.Person, error) {
 	person := new(models.Person)
-	err := client.Get("https://names.mcquay.me/api/v0", "", nil, person)
+	err := clientGet("https://names.mcquay.me/api/v0", "", nil, person)
 
 	if err != nil {
 		return new(models.Person), err
@@ -20,7 +22,7 @@ func getName() (*models.Person, error) {
 
 func getJoke(firstName string, lastName string) (*models.JokeResponse, error) {
 	joke := new(models.JokeResponse)
-	err := client.Get(fmt.Sprintf("http://api.icndb.com/jokes/random?firstName=%s&lastName=%s&limitTo=nerdy", firstName, lastName), "", nil, joke)
+	err := clientGet(fmt.Sprintf("http://api.icndb.com/jokes/random?firstName=%s&lastName=%s&limitTo=nerdy", firstName, lastName), "", nil, joke)
 
 	if err != nil {
 		return new(models.JokeResponse), err
